@@ -1,0 +1,275 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Tokens da identidade Garra Studios
+   Contraste sobre #0B0F1A: fg 18.3 · muted 7.5 · brand-light 6.8 · brand-2 7.9
+   #2563FF (3.9) só para fundos de botão, ícones e texto grande.
+------------------------------------------------------------------- */
+@theme {
+  --color-bg: #0b0f1a;
+  --color-bg-elevated: #0f1524;
+  --color-surface: #1f2937;
+  --color-fg: #f8fafc;
+  --color-fg-soft: #cbd5e1;
+  --color-muted: #94a3b8;
+  --color-brand: #2563ff;
+  --color-brand-strong: #1d4fe0;
+  --color-brand-light: #6e95ff;
+  --color-brand-2: #06b6d4;
+  --color-line: rgb(248 250 252 / 0.08);
+  --color-line-strong: rgb(248 250 252 / 0.14);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-montserrat), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
+
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 0 0 rgb(248 250 252 / 0.04) inset, 0 20px 40px -24px rgb(0 0 0 / 0.6);
+  --shadow-glow: 0 0 0 1px rgb(37 99 255 / 0.35), 0 12px 40px -12px rgb(37 99 255 / 0.55);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background-color: var(--color-bg);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Trava o scroll do fundo enquanto o menu mobile (dialog) está aberto. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Âncoras não ficam escondidas sob o header fixo. */
+  section[id],
+  [id="conteudo"] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-light);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: rgb(37 99 255 / 0.45);
+    color: var(--color-fg);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Utilitários de composição
+------------------------------------------------------------------- */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(248 250 252 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(248 250 252 / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility mask-radial {
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
+}
+
+@utility mask-fade-b {
+  mask-image: linear-gradient(to bottom, #000 60%, transparent);
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(100deg, #f8fafc 10%, #9db6ff 55%, #06b6d4 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility surface {
+  background-color: rgb(31 41 55 / 0.32);
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-card);
+}
+
+/* Card com borda que acende no hover/foco (gradiente azul → ciano). */
+@utility card-glow {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, rgb(37 99 255 / 0.9), rgb(6 182 212 / 0.5) 45%, transparent 75%);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+  &:hover::before,
+  &:focus-within::before {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Animação de entrada sem JavaScript (scroll-driven animations).
+   Navegadores sem suporte, ou com movimento reduzido, mostram o conteúdo direto.
+------------------------------------------------------------------- */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+
+  /* Header: o fundo aparece conforme a página rola. */
+  @supports (animation-timeline: scroll()) {
+    .header-scroll {
+      animation: header-solid linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 96px;
+    }
+  }
+
+  .hero-enter {
+    animation: reveal-up 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .blink {
+    animation: blink 1.1s steps(1) infinite;
+  }
+}
+
+@keyframes header-solid {
+  from {
+    background-color: rgb(11 15 26 / 0);
+    border-color: transparent;
+    backdrop-filter: blur(0);
+  }
+  to {
+    background-color: rgb(11 15 26 / 0.78);
+    border-color: var(--color-line);
+    backdrop-filter: blur(14px) saturate(1.4);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Fallback do header quando não há scroll-driven animations. */
+.header-scroll {
+  background-color: rgb(11 15 26 / 0.78);
+  border-color: var(--color-line);
+  backdrop-filter: blur(14px) saturate(1.4);
+}
+
+/* ------------------------------------------------------------------
+   FAQ com <details> nativo (acessível e funcional sem JS)
+------------------------------------------------------------------- */
+.faq-item summary {
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (interpolate-size: allow-keywords) {
+    .faq-item {
+      interpolate-size: allow-keywords;
+    }
+    .faq-item::details-content {
+      height: 0;
+      overflow: clip;
+      transition:
+        height 280ms ease,
+        content-visibility 280ms allow-discrete;
+    }
+    .faq-item[open]::details-content {
+      height: auto;
+    }
+  }
+}
+
+/* Menu mobile (<dialog>) */
+.mobile-menu::backdrop {
+  background: rgb(5 8 15 / 0.7);
+  backdrop-filter: blur(4px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-menu[open] {
+    animation: menu-in 220ms ease-out;
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

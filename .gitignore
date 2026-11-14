@@ -1,0 +1,29 @@
+# dependências
+/node_modules
+
+# build
+/.next/
+/out-sem-whatsapp/
+/out/
+/build
+*.tsbuildinfo
+next-env.d.ts
+
+# testes
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# ambiente (nunca versionar credenciais)
+.env
+.env.*
+!.env.example
+
+# sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# foto original (a versão otimizada fica em public/images)
+/foto-perfil.jpeg
