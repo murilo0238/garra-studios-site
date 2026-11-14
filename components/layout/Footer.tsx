@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 import type { ReactNode } from "react";
 import { Logo } from "@/components/brand/Logo";
+import { GitHubIcon } from "@/components/icons/TechIcons";
 import { CurrentYear } from "@/components/layout/CurrentYear";
 import { Container } from "@/components/ui/Container";
 import { footerServiceLinks, navItems } from "@/content/site";
@@ -52,6 +53,18 @@ export function Footer() {
           ) : null}
           <li>
             <FooterLink href="/#contato">Formulário de orçamento</FooterLink>
+          </li>
+          <li>
+            <a
+              href={siteConfig.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-fg-soft transition-colors hover:text-fg"
+            >
+              <GitHubIcon className="size-4 text-brand-2" />
+              GitHub
+              <span className="sr-only">(abre em nova aba)</span>
+            </a>
           </li>
           <li>
             <a

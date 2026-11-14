@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "garra-prod",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start", "--", "-p", "3005"],
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/serve-static.mjs", "out", "3005"],
       "port": 3005
     }
   ]

@@ -55,6 +55,8 @@ ${techs}
 2. A demanda é analisada e são definidos escopo, solução, prazo e investimento.
 3. Desenvolvimento, testes e entrega conforme o escopo acordado.
 ${phone ? `\nWhatsApp: ${formatBrazilianPhone(phone)} (https://wa.me/${phone})\n` : ""}
+GitHub (projetos e código): ${siteConfig.github}
+
 ## Perguntas frequentes
 
 ${faqSection.items.map((item) => `- **${item.question}** ${item.answer}`).join("\n")}

@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/config";
 
 /**
  * Dados estruturados Schema.org — apenas informações reais e confirmadas.
- * Sem endereço, avaliações ou perfis sociais (não existem dados confirmados para isso).
+ * Sem endereço ou avaliações (não existem dados confirmados para isso). Perfil público: só o GitHub.
  */
 export function buildJsonLd() {
   const orgId = `${siteConfig.url}/#organization`;
@@ -27,6 +27,7 @@ export function buildJsonLd() {
           name: siteConfig.owner,
           jobTitle: "Desenvolvedor Full Stack",
           image: `${siteConfig.url}${founder.photo}`,
+          sameAs: [siteConfig.github],
         },
         areaServed: { "@type": "Country", name: "Brasil" },
         knowsAbout: technologiesSection.groups.flatMap((group) => group.items.map((item) => item.name)),

@@ -51,7 +51,7 @@ test("links externos abrem em nova aba com rel seguro", async ({ page }) => {
   expect(count).toBeGreaterThan(0);
   for (let i = 0; i < count; i++) {
     await expect(external.nth(i)).toHaveAttribute("rel", /noopener/);
-    await expect(external.nth(i)).toHaveAttribute("href", /^https:\/\/(wa\.me\/\d+|[a-z0-9-]+\.garrastudios\.online)/);
+    await expect(external.nth(i)).toHaveAttribute("href", /^https:\/\/(wa\.me\/\d+|[a-z0-9-]+\.garrastudios\.online|github\.com\/murilo0238$)/);
   }
 });
 

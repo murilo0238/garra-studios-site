@@ -362,6 +362,7 @@ export const aboutSection = {
     { title: "Escopo claro", description: "Solução, prazo e investimento definidos antes de começar." },
     { title: "Qualidade técnica", description: "Código organizado, testado e fácil de manter." },
   ],
+  githubCta: "Ver projetos e código no GitHub",
 };
 
 /* ---------- FAQ ---------- */

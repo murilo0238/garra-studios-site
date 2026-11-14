@@ -3,6 +3,7 @@ import {
   siDocker,
   siFlask,
   siGit,
+  siGithub,
   siHtml5,
   siJavascript,
   siLinux,
@@ -37,6 +38,14 @@ export function TechIcon({ id, className }: { id: TechId; className?: string }) 
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
       <path d={icons[id].path} />
+    </svg>
+  );
+}
+
+export function GitHubIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+      <path d={siGithub.path} />
     </svg>
   );
 }

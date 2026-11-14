@@ -1,8 +1,11 @@
 import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/SectionHeading";
 import { LogoMark } from "@/components/brand/Logo";
+import { GitHubIcon } from "@/components/icons/TechIcons";
 import { aboutSection, founder } from "@/content/site";
+import { siteConfig } from "@/lib/config";
 
 export function About() {
   return (
@@ -52,6 +55,17 @@ export function About() {
               </li>
             ))}
           </ul>
+          <a
+            href={siteConfig.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="reveal group mt-2 inline-flex w-fit items-center gap-2.5 rounded-full border border-line-strong px-4 py-2 text-sm font-medium text-fg-soft transition-colors hover:border-brand hover:text-fg"
+          >
+            <GitHubIcon className="size-4 text-brand-2" />
+            {aboutSection.githubCta}
+            <ArrowUpRight aria-hidden className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            <span className="sr-only">(abre em nova aba)</span>
+          </a>
         </div>
       </Container>
     </section>

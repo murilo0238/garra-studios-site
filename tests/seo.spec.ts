@@ -82,9 +82,13 @@ test("JSON-LD é válido e não inventa dados", async ({ page }) => {
   expect(types).toContain("WebSite");
   expect(types.filter((t: string) => t === "Service").length).toBeGreaterThan(0);
   const serialized = JSON.stringify(data);
-  for (const forbidden of ["address", "aggregateRating", "review", "sameAs", "foundingDate", "numberOfEmployees"]) {
+  for (const forbidden of ["address", "aggregateRating", "review", "foundingDate", "numberOfEmployees"]) {
     expect(serialized, forbidden).not.toContain(`"${forbidden}"`);
   }
+  // Único perfil externo confirmado: o GitHub do fundador.
+  const org = data["@graph"].find((node: { "@type": string }) => node["@type"] === "Organization");
+  expect(org.sameAs).toBeUndefined();
+  expect(org.founder.sameAs).toEqual(["https://github.com/murilo0238"]);
 });
 
 test("rota inexistente retorna 404 com noindex", async ({ page }) => {

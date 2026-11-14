@@ -9,6 +9,8 @@ export const siteConfig = {
   url: "https://garrastudios.online",
   domain: "garrastudios.online",
   owner: "Murilo",
+  /** Perfil público com projetos de portfólio e código aberto. */
+  github: "https://github.com/murilo0238",
   locale: "pt_BR",
   language: "pt-BR",
   title: "Garra Studios — Criação de sites, sistemas e soluções digitais",
@@ -17,7 +19,7 @@ export const siteConfig = {
   shortDescription:
     "Marca de desenvolvimento liderada por Murilo: sites, sistemas, integrações e suporte técnico sob medida.",
   /** Data da última alteração relevante de conteúdo (usada no sitemap). Atualize ao mudar textos. */
-  contentUpdatedAt: "2026-11-11",
+  contentUpdatedAt: "2026-11-14",
   whatsappNumber: normalizeWhatsAppNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER),
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
