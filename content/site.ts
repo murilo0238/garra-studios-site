@@ -191,6 +191,8 @@ export type PortfolioProject = {
   highlights: string[];
   stack: string[];
   url: string;
+  /** Repositório público com o código, quando houver. */
+  repo?: string;
   images: { desktop: string; mobile: string; alt: string };
 };
 
@@ -202,6 +204,27 @@ export const portfolioSection = {
 };
 
 export const portfolioProjects: PortfolioProject[] = [
+  {
+    slug: "aura",
+    name: "AURA",
+    segment: "E-commerce de Skincare & Beleza",
+    kind: "conceito",
+    description:
+      "Loja virtual completa para uma marca de skincare premium: identidade visual própria, catálogo com busca e filtros, sacola que fica salva no navegador e checkout demonstrativo.",
+    highlights: [
+      "Catálogo com busca, filtros por categoria e preço e ordenação",
+      "Sacola persistente, página de produto e checkout com validação",
+      "Experiência pensada para o celular, com foco em acessibilidade",
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    url: "https://aura.garrastudios.online",
+    repo: "https://github.com/murilo0238/aura-skincare",
+    images: {
+      desktop: "/images/portfolio/aura-desktop.webp",
+      mobile: "/images/portfolio/aura-mobile.webp",
+      alt: "Página inicial da loja AURA, com o slogan Sua essência, em cada cuidado dividido em volta de um frasco de sérum rosé com um halo de luz",
+    },
+  },
   {
     slug: "atelier",
     name: "ATELIER",
@@ -216,6 +239,7 @@ export const portfolioProjects: PortfolioProject[] = [
     ],
     stack: ["HTML", "CSS", "JavaScript"],
     url: "https://atelier.garrastudios.online",
+    repo: "https://github.com/murilo0238/atelier-landing",
     images: {
       desktop: "/images/portfolio/atelier-desktop.webp",
       mobile: "/images/portfolio/atelier-mobile.webp",

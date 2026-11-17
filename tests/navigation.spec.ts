@@ -51,23 +51,40 @@ test("links externos abrem em nova aba com rel seguro", async ({ page }) => {
   expect(count).toBeGreaterThan(0);
   for (let i = 0; i < count; i++) {
     await expect(external.nth(i)).toHaveAttribute("rel", /noopener/);
-    await expect(external.nth(i)).toHaveAttribute("href", /^https:\/\/(wa\.me\/\d+|[a-z0-9-]+\.garrastudios\.online|github\.com\/murilo0238$)/);
+    await expect(external.nth(i)).toHaveAttribute("href", /^https:\/\/(wa\.me\/\d+|[a-z0-9-]+\.garrastudios\.online|github\.com\/murilo0238(\/[a-z0-9-]+)?$)/);
   }
 });
 
-test("portfólio mostra o ATELIER como projeto conceito com link ao vivo", async ({ page }) => {
-  await page.goto("/#portfolio");
-  const section = page.locator("#portfolio");
-  await expect(section.getByRole("heading", { name: "ATELIER" })).toBeVisible();
-  await expect(section.getByText("Projeto conceito")).toBeVisible();
-  await expect(section.getByRole("link", { name: /Ver site ao vivo/ })).toHaveAttribute(
-    "href",
-    "https://atelier.garrastudios.online",
-  );
-  const preview = section.getByRole("img", { name: /Página inicial do site ATELIER/ });
-  await preview.scrollIntoViewIfNeeded();
-  await expect.poll(() => preview.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBe(1200);
-});
+const portfolioCases = [
+  {
+    name: "AURA",
+    url: "https://aura.garrastudios.online",
+    repo: "https://github.com/murilo0238/aura-skincare",
+    preview: /Página inicial da loja AURA/,
+  },
+  {
+    name: "ATELIER",
+    url: "https://atelier.garrastudios.online",
+    repo: "https://github.com/murilo0238/atelier-landing",
+    preview: /Página inicial do site ATELIER/,
+  },
+];
+
+for (const project of portfolioCases) {
+  test(`portfólio mostra ${project.name} como projeto conceito com links ao vivo e de código`, async ({ page }) => {
+    await page.goto("/#portfolio");
+    const card = page
+      .locator("#portfolio article")
+      .filter({ has: page.getByRole("heading", { name: project.name, exact: true }) });
+    await expect(card).toHaveCount(1);
+    await expect(card.getByText("Projeto conceito")).toBeVisible();
+    await expect(card.getByRole("link", { name: /Ver site ao vivo/ })).toHaveAttribute("href", project.url);
+    await expect(card.getByRole("link", { name: /Ver código/ })).toHaveAttribute("href", project.repo);
+    const preview = card.getByRole("img", { name: project.preview });
+    await preview.scrollIntoViewIfNeeded();
+    await expect.poll(() => preview.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBe(1200);
+  });
+}
 
 test("CTAs de serviço apontam para o formulário com o serviço certo", async ({ page }) => {
   await page.goto("/");

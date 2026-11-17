@@ -98,16 +98,30 @@ function ProjectCard({ project }: { project: PortfolioProject }) {
         </ul>
 
         <div className="mt-auto flex flex-col gap-3 pt-2">
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-12 w-fit items-center gap-2 rounded-xl bg-brand px-6 text-[0.95rem] font-medium text-fg shadow-[0_8px_24px_-10px_rgb(37_99_255/0.8)] transition-colors hover:bg-brand-strong"
-          >
-            Ver site ao vivo
-            <ArrowUpRight aria-hidden className="size-4" />
-            <span className="sr-only">(abre em nova aba)</span>
-          </a>
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-12 w-fit items-center gap-2 rounded-xl bg-brand px-6 text-[0.95rem] font-medium text-fg shadow-[0_8px_24px_-10px_rgb(37_99_255/0.8)] transition-colors hover:bg-brand-strong"
+            >
+              Ver site ao vivo
+              <ArrowUpRight aria-hidden className="size-4" />
+              <span className="sr-only">(abre em nova aba)</span>
+            </a>
+            {project.repo && (
+              <a
+                href={project.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-12 w-fit items-center gap-2 rounded-xl border border-line-strong px-5 text-[0.95rem] font-medium text-fg-soft transition-colors hover:border-fg/40 hover:text-fg"
+              >
+                Ver código
+                <ArrowUpRight aria-hidden className="size-4" />
+                <span className="sr-only">de {project.name} no GitHub (abre em nova aba)</span>
+              </a>
+            )}
+          </div>
           {project.kind === "conceito" && (
             <p className="text-xs leading-relaxed text-muted">
               Marca fictícia criada pela Garra Studios para demonstrar design e desenvolvimento. Não é um projeto de
