@@ -205,6 +205,26 @@ export const portfolioSection = {
 
 export const portfolioProjects: PortfolioProject[] = [
   {
+    slug: "brasa",
+    name: "BRASA",
+    segment: "Delivery próprio para hamburgueria",
+    kind: "conceito",
+    description:
+      "Sistema completo de pedidos para um restaurante vender pelo próprio site, sem depender só dos aplicativos: cardápio digital, personalização de lanches, checkout, acompanhamento do pedido e painel de gestão.",
+    highlights: [
+      "Cardápio com adicionais, ingredientes removíveis e preço conferido no servidor",
+      "Acompanhamento do pedido em tempo real para o cliente",
+      "Painel com fila de pedidos, gestão do cardápio, horários e taxas por bairro",
+    ],
+    stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma"],
+    url: "https://brasa.garrastudios.online",
+    images: {
+      desktop: "/images/portfolio/brasa-desktop.webp",
+      mobile: "/images/portfolio/brasa-mobile.webp",
+      alt: "Cardápio da hamburgueria BRASA com hambúrgueres em linhas, preços e a comanda da sacola ao lado; no celular, a página inicial com um cheeseburger com bacon diante das brasas e o título Feito na brasa. Entregue quente.",
+    },
+  },
+  {
     slug: "aura",
     name: "AURA",
     segment: "E-commerce de Skincare & Beleza",
